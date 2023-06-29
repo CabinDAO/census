@@ -1801,18 +1801,22 @@ export type Query = {
   /** Find a document from the collection of 'Hat' by its id. */
   findHatByID?: Maybe<Hat>;
   syncAttemptByKeyAndStatus?: Maybe<BlockSyncAttempt>;
+  profileByEmail?: Maybe<Profile>;
   myVouchesThisYear: Scalars['Int'];
   syncAttemptsByKey: BlockSyncAttemptPage;
   allProfiles: ProfilePage;
   me: Profile;
+  profileByExternalUserId?: Maybe<Profile>;
   /** Find a document from the collection of 'OtterspaceBadgeSpec' by its id. */
   findOtterspaceBadgeSpecByID?: Maybe<OtterspaceBadgeSpec>;
   allActivities: QueryAllActivitiesPage;
   activitiesByProfile: QueryActivitiesByProfilePage;
+  allLocations: LocationPage;
   allAccounts: AccountPage;
   /** Find a document from the collection of 'Account' by its id. */
   findAccountByID?: Maybe<Account>;
   offersCount: Scalars['Int'];
+  pendingMigrationProfiles: QueryPendingMigrationProfilesPage;
   allBadges: OtterspaceBadgePage;
   /** Find a document from the collection of 'ActivityReaction' by its id. */
   findActivityReactionByID?: Maybe<ActivityReaction>;
@@ -1923,6 +1927,11 @@ export type QuerySyncAttemptByKeyAndStatusArgs = {
 };
 
 
+export type QueryProfileByEmailArgs = {
+  email: Scalars['String'];
+};
+
+
 export type QuerySyncAttemptsByKeyArgs = {
   _size?: InputMaybe<Scalars['Int']>;
   _cursor?: InputMaybe<Scalars['String']>;
@@ -1933,6 +1942,11 @@ export type QuerySyncAttemptsByKeyArgs = {
 export type QueryAllProfilesArgs = {
   _size?: InputMaybe<Scalars['Int']>;
   _cursor?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryProfileByExternalUserIdArgs = {
+  externalUserId: Scalars['String'];
 };
 
 
@@ -1954,6 +1968,12 @@ export type QueryActivitiesByProfileArgs = {
 };
 
 
+export type QueryAllLocationsArgs = {
+  _size?: InputMaybe<Scalars['Int']>;
+  _cursor?: InputMaybe<Scalars['String']>;
+};
+
+
 export type QueryAllAccountsArgs = {
   _size?: InputMaybe<Scalars['Int']>;
   _cursor?: InputMaybe<Scalars['String']>;
@@ -1967,6 +1987,12 @@ export type QueryFindAccountByIdArgs = {
 
 export type QueryOffersCountArgs = {
   input?: InputMaybe<GetOffersInput>;
+};
+
+
+export type QueryPendingMigrationProfilesArgs = {
+  _size?: InputMaybe<Scalars['Int']>;
+  _cursor?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -2035,6 +2061,17 @@ export type QueryLocationsByLocationTypePage = {
   __typename?: 'QueryLocationsByLocationTypePage';
   /** The elements of type 'Location' in this page. */
   data: Array<Maybe<Location>>;
+  /** A cursor for elements coming after the current page. */
+  after?: Maybe<Scalars['String']>;
+  /** A cursor for elements coming before the current page. */
+  before?: Maybe<Scalars['String']>;
+};
+
+/** The pagination object for elements of type 'Profile'. */
+export type QueryPendingMigrationProfilesPage = {
+  __typename?: 'QueryPendingMigrationProfilesPage';
+  /** The elements of type 'Profile' in this page. */
+  data: Array<Maybe<Profile>>;
   /** A cursor for elements coming after the current page. */
   after?: Maybe<Scalars['String']>;
   /** A cursor for elements coming before the current page. */

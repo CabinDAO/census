@@ -8,7 +8,7 @@ import { Paywall } from '@unlock-protocol/paywall'
 import networks from '@unlock-protocol/networks'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const loadUnlockCheckout = (provider: any) => {
+export const loadUnlockCheckout = async (provider: any) => {
   const url =
     process.env.NEXT_PUBLIC_APP_ENV === 'prod'
       ? 'cabin.city'
@@ -28,8 +28,13 @@ export const loadUnlockCheckout = (provider: any) => {
     icon: `https://${url}/images/cabin-nft.png`,
   }
 
-  const paywall = new Paywall(paywallConfig, networks, provider)
-  paywall.loadCheckoutModal(paywallConfig, 'https://app.unlock-protocol.com/')
+  const paywall = new Paywall(networks)
+
+  await paywall.setPaywallConfig(paywallConfig)
+
+  paywall.provider = provider
+
+  paywall.loadCheckoutModal()
 }
 
 // https://docs.unlock-protocol.com/tools/paywall/#user-info
